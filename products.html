@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product List</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f2f4f7;
+        margin: 0;
+        padding: 30px;
+      }
+      h1 {
+        text-align: center;
+      }
+      .products {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+      .product {
+        background: white;
+        width: 200px;
+        padding: 16px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .product img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+      .product h2 {
+        margin: 12px 0 6px;
+        font-size: 18px;
+      }
+      .price {
+        font-weight: bold;
+        color: #1a7f37;
+      }
+      .out {
+        font-weight: bold;
+        color: #d1242f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      function Products({ name, price, inStock, image }) {
+        return (
+          <div className="product">
+            <img src={image} alt={name} />
+            <h2>{name}</h2>
+            {inStock ? (
+              <p className="price">₦{price}</p>
+            ) : (
+              <p className="out">Out of Stock</p>
+            )}
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <>
+            <h1>Our Products</h1>
+            <div className="products">
+              <Products
+                name="Wireless Mouse"
+                price={4500}
+                inStock={true}
+                image="https://picsum.photos/seed/mouse/300/200"
+              />
+              <Products
+                name="Laptop Stand"
+                price={12000}
+                inStock={false}
+                image="https://picsum.photos/seed/stand/300/200"
+              />
+              <Products
+                name="Scientific Calculator"
+                price={8500}
+                inStock={true}
+                image="https://picsum.photos/seed/calculator/300/200"
+              />
+              <Products
+                name="USB Flash Drive"
+                price={3000}
+                inStock={false}
+                image="https://picsum.photos/seed/flash/300/200"
+              />
+            </div>
+          </>
+        );
+      }
+      const container = document.querySelector(".root");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
