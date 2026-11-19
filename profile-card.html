@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile Card</title>
+
+    <style></style>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      function ProfileCard({ name, course, level, image }) {
+        return (
+          <div className="product">
+            <img src={image} alt={name} />
+            <h2>{name}</h2>
+            <p>{course}</p>
+            <p>{level}</p>
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <>
+            <h1>Student Profiles</h1>
+            <div>
+              <ProfileCard
+                name="Ada"
+                course="Mechatronics Engineering"
+                level="200 level"
+                image="https://picsum.photos/seed/ada/200"
+              />
+              <ProfileCard
+                name="Tunde"
+                course="Mechanical Engineering"
+                level="300 level"
+                image="https://picsum.photos/seed/tunde/200"
+              />
+              <ProfileCard
+                name="Chioma"
+                course="Electrical Engineering"
+                level="400 level"
+                image="https://picsum.photos/seed/chioma/200"
+              />
+            </div>
+          </>
+        );
+      }
+      const container = document.querySelector(".root");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
