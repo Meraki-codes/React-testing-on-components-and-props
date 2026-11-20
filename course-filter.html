@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Course-filler</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 420px;
+        margin: 40px auto;
+        padding: 0 16px;
+      }
+      input,
+      select {
+        padding: 8px;
+        margin-right: 8px;
+      }
+      li {
+        padding: 6px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const courses = [
+        { id: 1, name: "Fluid Mechanics", level: 200 },
+        { id: 2, name: "Thermodynamics", level: 200 },
+        { id: 3, name: "Strength of Materials", level: 200 },
+        { id: 4, name: "Numerical Methods", level: 300 },
+        { id: 5, name: "Electrical Engineering", level: 100 },
+        { id: 6, name: "Control Systems", level: 300 },
+        { id: 7, name: "Engineering Mathematics", level: 100 },
+        { id: 8, name: "Machine Design", level: 300 },
+      ];
+      function App() {
+        const [search, setSearch] = React.useState("");
+        const [level, setLevel] = React.useState("all");
+
+        const filteredCourses = courses.filter((course) => {
+          const matchesName = course.name
+            .toLowerCase()
+            .includes(search.toLowerCase());
+          const matchesLevel =
+            level === "all" || course.level === Number(level);
+          return matchesName && matchesLevel;
+        });
+
+        return (
+          <>
+            <h1>Courses</h1>
+            <input
+              placeholder="Search Courses"
+              onChange={(event) => setSearch(event.target.value)}
+              value={search}
+            />
+
+            <select
+              value={level}
+              onChange={(event) => setLevel(event.target.value)}
+            >
+              <option value="all">All levels</option>
+              <option value="100">100 Level</option>
+              <option value="200">200 Level</option>
+              <option value="300">300 Level</option>
+            </select>
+
+            {filteredCourses.length === 0 ? (
+              <p>No courses found</p>
+            ) : (
+              <ul>
+                {filteredCourses.map((course) => {
+                  return (
+                    <li key={course.id}>
+                      {course.name} ({course.level} Level)
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </>
+        );
+      }
+
+      const container = document.querySelector(".root");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
