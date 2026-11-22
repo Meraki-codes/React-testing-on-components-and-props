@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>To-do list</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        padding: 40px;
+      }
+      .number {
+        font-size: 60px;
+        margin: 20px;
+      }
+      button {
+        font-size: 18px;
+        padding: 8px 16px;
+        margin: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      function App() {
+        const [count, setCount] = React.useState(0);
+        return (
+          <>
+            <h1>Counter</h1>
+
+            <div
+              className="number"
+              style={{ color: count < 0 ? "red" : "black" }}
+            >
+              {count}
+            </div>
+
+            <button onClick={() => setCount(count + 1)}>+1</button>
+            <button onClick={() => setCount(count - 1)}>-1</button>
+            <button onClick={() => setCount(0)}>Reset</button>
+          </>
+        );
+      }
+
+      const container = document.querySelector(".root");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>

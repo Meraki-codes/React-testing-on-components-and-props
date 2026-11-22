@@ -11,6 +11,30 @@
         margin: 0;
         box-sizing: border-box;
       }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        max-width: 420px;
+        margin: 40px auto;
+        padding: 0 16px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #ddd;
+      }
+      input {
+        padding: 8px;
+        width: 240px;
+      }
+      button {
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+      .empty {
+        color: #777;
+      }
     </style>
   </head>
   <body>
@@ -26,7 +50,65 @@
     ></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-      function App() {}
+      function TodoInput({ todos, setTodos }) {
+        const [text, setText] = React.useState("");
+
+        function addTodo() {
+          if (text.trim() === "") return;
+
+          setTodos([
+            ...todos,
+            { text: text.trim(), done: false, id: crypto.randomUUID() },
+          ]);
+          setText("");
+        }
+
+        return (
+          <>
+            <input
+              placeholder="Add a todo"
+              value={text}
+              onChange={(event) => setText(event.target.value)}
+            />
+            <button onClick={addTodo}>Add</button>
+          </>
+        );
+      }
+
+      function TodoList({ todos, setTodos }) {
+        function deleteTodo(id) {
+          setTodos(todos.filter((todo) => todo.id !== id));
+        }
+
+        if (todos.length === 0) {
+          return <p className="empty">No todos yet</p>;
+        }
+
+        return (
+          <div>
+            {todos.map((todo) => (
+              <div className="row" key={todo.id}>
+                <span>{todo.text}</span>
+                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+              </div>
+            ))}
+          </div>
+        );
+      }
+      function App() {
+        const [todos, setTodos] = React.useState([
+          { text: "Study Thermodynamics", done: false, id: "id1" },
+          { text: "Practice React", done: false, id: "id2" },
+        ]);
+
+        return (
+          <>
+            <h1>To do List</h1>
+            <TodoInput todos={todos} setTodos={setTodos} />
+            <TodoList todos={todos} setTodos={setTodos} />
+          </>
+        );
+      }
 
       const container = document.querySelector(".root");
       ReactDOM.createRoot(container).render(<App />);
